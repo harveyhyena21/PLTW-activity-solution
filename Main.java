@@ -13,28 +13,35 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String answer = "";
 
-        // continues looping until user provides the letter 'c' for coding or 'd'
-        // for decoding
-        boolean isValid = false;
-        while (!isValid) {
-            System.out.println("Would you like to (c)ode or (d)ecode Morse code?");
+        boolean again = true;
+
+        while (again) {
+            // continues looping until user provides the letter 'c' for coding or 'd'
+            // for decoding
+            boolean isValid = false;
+            while (!isValid) {
+                System.out.println("\nWould you like to (c)ode or (d)ecode Morse code?");
+                answer = sc.nextLine();
+
+                if (answer.equals("c")) {
+                    isValid = true;
+                    System.out.println("\nEnter the phrase you wish to code (no punctuation):");
+                    ArrayList<String> phrase = englishToArray(sc.nextLine());
+                    System.out.println(code(phrase));
+
+                } else if (answer.equals("d")) {
+                    isValid = true;
+                    System.out.println("\nEnter the phrase you wish to decode (no punctuation):");
+                    ArrayList<String> phrase = morseToArray(sc.nextLine());
+                    //System.out.println(phrase);
+                    System.out.println(decode(phrase));
+
+                } else
+                    System.out.println("\nInvalid input. Please try again.");
+            }
+            System.out.println("\nWould you like to code or decode something else? (Y)es or (n)o?");
             answer = sc.nextLine();
-
-            if (answer.equals("c")) {
-                isValid = true;
-                System.out.println("\nEnter the phrase you wish to code (no punctuation):");
-                ArrayList<String> phrase = englishToArray(sc.nextLine());
-                System.out.println(code(phrase));
-
-            } else if (answer.equals("d")) {
-                isValid = true;
-                System.out.println("\nEnter the phrase you wish to decode (no punctuation):");
-                ArrayList<String> phrase = morseToArray(sc.nextLine());
-                //System.out.println(phrase);
-                System.out.println(decode(phrase));
-
-            } else
-                System.out.println("\nInvalid input. Please try again.");
+            if (answer.toLowerCase().equals("n")) again = false;
         }
 
         sc.close();
@@ -112,13 +119,14 @@ public class Main {
             while (!stop) {
                 letter.add(phrase.get(i).substring(0, phrase.get(i).indexOf(" ")));
                 phrase.set(i, phrase.get(i).substring(phrase.get(i).indexOf(" ") + 1));
-                if (phrase.indexOf(" ") == -1) {
+                if (phrase.get(i).indexOf(" ") == -1) {
                     letter.add(phrase.get(i));
                     stop = true;
                 }
             }
 
-            System.out.println(letter);
+            //System.out.println(letter);
+            
             for (int j = 0; j < letter.size(); j++) {
                 for (int k = 0; k < morseAlphabet.length; k++) {
                     if (letter.get(j).equals(morseAlphabet[k]))
