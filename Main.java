@@ -1,3 +1,12 @@
+/* TO DO (in order)
+ * add more comments
+ * check if phrase inputted is correct for decoding or coding (e.g. not putting latin alphabet characters for decoding part)
+ * add punctuation to arrays (maybe even numbers?)
+ * if punctuation is added, would have to adjust code so spaces aren't added before the punctuation
+ * edit to create activity obvi
+ * write steps for the activity and hints maybe?
+ */
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -15,6 +24,7 @@ public class Main {
 
         boolean again = true;
 
+        //repeats while the user wants to keep coding/decoding
         while (again) {
             // continues looping until user provides the letter 'c' for coding or 'd'
             // for decoding
@@ -27,14 +37,14 @@ public class Main {
                     isValid = true;
                     System.out.println("\nEnter the phrase you wish to code (no punctuation):");
                     ArrayList<String> phrase = englishToArray(sc.nextLine());
-                    System.out.println(code(phrase));
+                    System.out.println("\nYour coded phrase:\n" + code(phrase));
 
                 } else if (answer.equals("d")) {
                     isValid = true;
                     System.out.println("\nEnter the phrase you wish to decode (no punctuation):");
                     ArrayList<String> phrase = morseToArray(sc.nextLine());
-                    //System.out.println(phrase);
-                    System.out.println(decode(phrase));
+                    // System.out.println(phrase);
+                    System.out.println("\nYour decoded phrase:\n" + decode(phrase));
 
                 } else
                     System.out.println("\nInvalid input. Please try again.");
@@ -48,8 +58,11 @@ public class Main {
                 if (answer.toLowerCase().equals("n")) {
                     again = false;
                     isValid = true;
-                } else if (answer.toLowerCase().equals("y")) isValid = true;
-                else System.out.println("\nInvalid input. Please try again.");
+                    System.out.println("\nThanks for using this Morse code coder/decoder!");
+                } else if (answer.toLowerCase().equals("y"))
+                    isValid = true;
+                else
+                    System.out.println("\nInvalid input. Please try again.");
             }
         }
 
@@ -82,7 +95,7 @@ public class Main {
         boolean stop = false;
 
         while (!stop) {
-            
+
             if (phrase.indexOf(" /") == -1) {
                 output.add(phrase);
                 stop = true;
@@ -134,16 +147,16 @@ public class Main {
                 }
             }
 
-            //System.out.println(letter);
-            
+            // System.out.println(letter);
+
             for (int j = 0; j < letter.size(); j++) {
                 for (int k = 0; k < morseAlphabet.length; k++) {
                     if (letter.get(j).equals(morseAlphabet[k]))
                         output += alphabet[k];
-                
+
                 }
             }
-            
+
             output += " ";
         }
 
