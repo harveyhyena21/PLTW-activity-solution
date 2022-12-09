@@ -39,9 +39,18 @@ public class Main {
                 } else
                     System.out.println("\nInvalid input. Please try again.");
             }
-            System.out.println("\nWould you like to code or decode something else? (Y)es or (n)o?");
-            answer = sc.nextLine();
-            if (answer.toLowerCase().equals("n")) again = false;
+
+            isValid = false;
+
+            while (!isValid) {
+                System.out.println("\nWould you like to code or decode something else? (Y)es or (n)o?");
+                answer = sc.nextLine();
+                if (answer.toLowerCase().equals("n")) {
+                    again = false;
+                    isValid = true;
+                } else if (answer.toLowerCase().equals("y")) isValid = true;
+                else System.out.println("\nInvalid input. Please try again.");
+            }
         }
 
         sc.close();
@@ -54,11 +63,12 @@ public class Main {
         boolean stop = false;
 
         while (!stop) {
-            output.add(phrase.substring(0, phrase.indexOf(" ")));
-            phrase = phrase.substring(phrase.indexOf(" ") + 1);
             if (phrase.indexOf(" ") == -1) {
                 output.add(phrase);
                 stop = true;
+            } else {
+                output.add(phrase.substring(0, phrase.indexOf(" ")));
+                phrase = phrase.substring(phrase.indexOf(" ") + 1);
             }
         }
 
@@ -73,13 +83,12 @@ public class Main {
 
         while (!stop) {
             
-            output.add(phrase.substring(0, phrase.indexOf(" /")));
-            phrase = phrase.substring(phrase.indexOf(" /") + 3);
             if (phrase.indexOf(" /") == -1) {
                 output.add(phrase);
                 stop = true;
             } else {
-                
+                output.add(phrase.substring(0, phrase.indexOf(" /")));
+                phrase = phrase.substring(phrase.indexOf(" /") + 3);
             }
         }
 
