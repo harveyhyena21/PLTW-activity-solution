@@ -1,6 +1,6 @@
 /* TO DO (in order)
- * add more comments
  * check if phrase inputted is correct for decoding or coding (e.g. not putting latin alphabet characters for decoding part)
+ * tells user more (like to include slashes and spaces and what to use for dots and dashes)
  * add punctuation to arrays (maybe even numbers?)
  * if punctuation is added, would have to adjust code so spaces aren't added before the punctuation
  * edit to create activity obvi
@@ -24,7 +24,7 @@ public class Main {
 
         boolean again = true;
 
-        //repeats while the user wants to keep coding/decoding
+        // repeats while the user wants to keep coding/decoding
         while (again) {
             // continues looping until user provides the letter 'c' for coding or 'd'
             // for decoding
@@ -36,12 +36,14 @@ public class Main {
                 if (answer.equals("c")) {
                     isValid = true;
                     System.out.println("\nEnter the phrase you wish to code (no punctuation):");
+                    // converts the phrase into an ArrayList separated by words
                     ArrayList<String> phrase = englishToArray(sc.nextLine());
                     System.out.println("\nYour coded phrase:\n" + code(phrase));
 
                 } else if (answer.equals("d")) {
                     isValid = true;
                     System.out.println("\nEnter the phrase you wish to decode (no punctuation):");
+                    // converts the phrase into an ArrayList separated by slashes (words)
                     ArrayList<String> phrase = morseToArray(sc.nextLine());
                     // System.out.println(phrase);
                     System.out.println("\nYour decoded phrase:\n" + decode(phrase));
@@ -52,6 +54,7 @@ public class Main {
 
             isValid = false;
 
+            // repeats while the user enters a valid input
             while (!isValid) {
                 System.out.println("\nWould you like to code or decode something else? (Y)es or (n)o?");
                 answer = sc.nextLine();
@@ -75,7 +78,10 @@ public class Main {
 
         boolean stop = false;
 
+        // repeats through the entire phrase word by word
         while (!stop) {
+            // if on the last word, adds the remaining phrase string; to prevent the off by one problem
+            // else, adds the word to the ArrayList, then deletes the word from the phrase
             if (phrase.indexOf(" ") == -1) {
                 output.add(phrase);
                 stop = true;
@@ -94,8 +100,10 @@ public class Main {
 
         boolean stop = false;
 
+        // repeats through the entire phrase word by word
         while (!stop) {
-
+            // if on the last word, adds the remaining phrase string; to prevent the off by one problem
+            // else, adds the word to the ArrayList, then deletes the word from the phrase
             if (phrase.indexOf(" /") == -1) {
                 output.add(phrase);
                 stop = true;
@@ -112,14 +120,20 @@ public class Main {
     public static String code(ArrayList<String> phrase) {
         String output = "";
 
+        //loops through each word
         for (int i = 0; i < phrase.size(); i++) {
+            //loops through each letter
             for (int j = 0; j < phrase.get(i).length(); j++) {
+                // finds the morse sequence that matches the latin alphabet letter and adds it 
+                // to the output string
                 for (int k = 0; k < alphabet.length; k++) {
                     if (phrase.get(i).substring(j, j + 1).equals(alphabet[k]))
                         output += morseAlphabet[k];
                 }
+                // adds a space to separate each letter
                 output += " ";
             }
+            // adds a slash to separate each word
             if (i != phrase.size() - 1)
                 output += "/ ";
         }
@@ -130,13 +144,16 @@ public class Main {
     // decodes the phrase
     public static String decode(ArrayList<String> phrase) {
         String output = "";
-
+        
+        //new ArrayList that will contain each word, separated by each letter
         ArrayList<String> letter = new ArrayList<String>();
         boolean stop = false;
 
+        //loops through each word
         for (int i = 0; i < phrase.size(); i++) {
             letter.clear();
 
+            //utilizes the same function as "toArray" methods to add to the letter ArrayLists
             stop = false;
             while (!stop) {
                 letter.add(phrase.get(i).substring(0, phrase.get(i).indexOf(" ")));
@@ -147,16 +164,21 @@ public class Main {
                 }
             }
 
+            // uncomment to debug your code
             // System.out.println(letter);
 
+            //loops through each letter
             for (int j = 0; j < letter.size(); j++) {
+                // finds the latin alphabet letter that matches the morse sequence and adds it 
+                // to the output string
                 for (int k = 0; k < morseAlphabet.length; k++) {
                     if (letter.get(j).equals(morseAlphabet[k]))
                         output += alphabet[k];
 
                 }
             }
-
+            
+            //separates words by a space
             output += " ";
         }
 
