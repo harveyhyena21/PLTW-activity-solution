@@ -1,8 +1,3 @@
-/* TO DO (in order)
- * edit to create activity obvi
- * write steps for the activity and hints maybe?
- */
-
 import java.util.Scanner;
 import java.util.ArrayList;
 
@@ -34,7 +29,7 @@ public class Main {
                     System.out.println("\n\033[1;37m\033[4;37mEnter the phrase you wish to code (no punctuation):\033[0m");
 
                     // converts the phrase into an ArrayList separated by words
-                    ArrayList<String> phrase = englishToArray(sc.nextLine());
+                    ArrayList<String> phrase = englishToArrayList(sc.nextLine());
                     System.out.println("\n\033[1;37m\033[4;37mYour coded phrase:\033[0m\n" + code(phrase));
 
                 } else if (answer.equals("d")) {
@@ -43,7 +38,7 @@ public class Main {
                     System.out.println("\033[0;30mPlease use periods (\".\") for dots and hyphens (\"-\") for dashes. Separate letters with spaces and words with a forward slash with a space on both sides (\" / \"). Example: .... . .-.. .-.. --- / .-- --- .-. .-.. -.. which translates into \"hello world.\"\033[0m");
 
                     // converts the phrase into an ArrayList separated by slashes (words)
-                    ArrayList<String> phrase = morseToArray(sc.nextLine());
+                    ArrayList<String> phrase = morseToArrayList(sc.nextLine());
                     System.out.println("\n\033[1;37m\033[4;37mYour decoded phrase:\033[0m\n" + decode(phrase));
 
                 } else
@@ -71,7 +66,7 @@ public class Main {
     }
 
     // converts an English phrase to an ArrayList with each element being one word
-    public static ArrayList<String> englishToArray(String phrase) {
+    public static ArrayList<String> englishToArrayList(String phrase) {
         ArrayList<String> output = new ArrayList<String>();
 
         phrase = phrase.toLowerCase();
@@ -95,7 +90,7 @@ public class Main {
     }
 
     // converts a Morse code phrase to an ArrayList with each element being one word
-    public static ArrayList<String> morseToArray(String phrase) {
+    public static ArrayList<String> morseToArrayList(String phrase) {
         ArrayList<String> output = new ArrayList<String>();
 
         boolean stop = false;
@@ -165,10 +160,7 @@ public class Main {
                     phrase.set(i, phrase.get(i).substring(phrase.get(i).indexOf(" ") + 1));
                 }
             }
-
-            // uncomment to debug your code
-            // System.out.println(letter);
-
+            
             // loops through each letter
             for (int j = 0; j < letter.size(); j++) {
                 // finds the latin alphabet letter that matches the morse sequence and adds it
